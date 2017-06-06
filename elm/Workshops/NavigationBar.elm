@@ -7,16 +7,6 @@ import Workshops.Msg exposing (Msg(..))
 import Workshops.Pages exposing (PageType(..))
 import Workshops.Workshop exposing (Workshop)
 
-viewNavigationBar : PageType -> Html.Html Msg
-viewNavigationBar currentPage =
-    Html.nav [ Html.Attributes.style [ ("background", "red"), ("display", "flex"), ("flex-direction", "row"), ("justify-content", "space-between"), ("align-items", "flex-start") ] ]
-        [ viewMainLink currentPage
-        , Html.div [ Html.Attributes.style [ ("align-self", "flex-end") ] ]
-            [ Html.input [ Html.Attributes.placeholder "Keywords" ] []
-            , Html.button [] [ Html.text "Search" ]
-            ]
-        ]
-
 viewMainLink : PageType -> Html.Html Msg
 viewMainLink currentPage =
     case currentPage of
@@ -28,3 +18,13 @@ viewMainLink currentPage =
 
         WorkshopPage workshop previousPage ->
             viewMainLink previousPage
+
+viewNavigationBar : PageType -> Html.Html Msg
+viewNavigationBar currentPage =
+    Html.nav [ Html.Attributes.style [ ("background", "red"), ("display", "flex"), ("flex-direction", "row"), ("justify-content", "space-between"), ("align-items", "flex-start") ] ]
+        [ viewMainLink currentPage
+        , Html.div [ Html.Attributes.style [ ("align-self", "flex-end") ] ]
+            [ Html.input [ Html.Attributes.placeholder "Keywords" ] []
+            , Html.button [] [ Html.text "Search" ]
+            ]
+        ]

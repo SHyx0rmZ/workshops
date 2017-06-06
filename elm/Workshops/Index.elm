@@ -14,15 +14,6 @@ import Workshops.Msg exposing (Msg(..))
 import Workshops.NavigationBar exposing (viewNavigationBar)
 import Workshops.Workshop exposing (Workshop)
 
-main : Program Never Model Msg
-main =
-    Html.program
-        { init = init
-        , update = update
-        , view = view
-        , subscriptions = subscriptions
-        }
-
 init : (Model, Cmd Msg)
 init =
         Model initWorkshops ListPage ! []
@@ -41,6 +32,19 @@ initWorkshops =
         [ Workshop [ "banana", "apple", "fruit" ] "Foo" "Lorem ipsum dolor sit amet." [] [] [] [] date
         , Workshop [ "dog", "cat", "animal" ] "Bar" "Lorem ipsum dolor sit amet." [] [] [] [] date
         ]
+
+main : Program Never Model Msg
+main =
+    Html.program
+        { init = init
+        , update = update
+        , view = view
+        , subscriptions = subscriptions
+        }
+
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    Sub.none
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
@@ -66,7 +70,3 @@ viewPage model currentPage =
 
         WorkshopPage workshop previousPage ->
             viewWorkshopPage workshop previousPage model
-
-subscriptions : Model -> Sub Msg
-subscriptions _ =
-    Sub.none
