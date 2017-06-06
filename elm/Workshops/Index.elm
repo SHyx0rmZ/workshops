@@ -43,17 +43,19 @@ initWorkshops =
         ]
 
 update : Msg -> Model -> (Model, Cmd Msg)
-update _ model =
-    model ! []
+update msg model =
+    case msg of
+        SwitchPage newPage ->
+            { model | currentPage = newPage } ! []
 
 view : Model -> Html.Html Msg
 view model =
-    Html.div [ Html.Attributes.style [ ("background", "red") ] ]
-        [ viewNavigationBar ListPage
-        , viewPage model ListPage
+    Html.div []
+        [ viewNavigationBar model.currentPage
+        , viewPage model model.currentPage
         ]
 
-viewPage : Model -> PageType -> Html.Html msg
+viewPage : Model -> PageType -> Html.Html Msg
 viewPage model currentPage =
     case currentPage of
         ListPage ->

@@ -3,10 +3,11 @@ module Workshops.NavigationBar exposing (viewNavigationBar)
 import Html
 import Html.Attributes
 import Html.Events
+import Workshops.Msg exposing (Msg(..))
 import Workshops.Pages exposing (PageType(..))
 import Workshops.Workshop exposing (Workshop)
 
-viewNavigationBar : PageType -> Html.Html msg
+viewNavigationBar : PageType -> Html.Html Msg
 viewNavigationBar currentPage =
     Html.nav [ Html.Attributes.style [ ("display", "flex"), ("flex-direction", "row"), ("justify-content", "space-between"), ("align-items", "flex-start") ] ]
         [ viewMainLink currentPage
@@ -16,14 +17,14 @@ viewNavigationBar currentPage =
             ]
         ]
 
-viewMainLink : PageType -> Html.Html msg
+viewMainLink : PageType -> Html.Html Msg
 viewMainLink currentPage =
     case currentPage of
         ListPage ->
-            Html.a [ Html.Attributes.href "#" ] [ Html.text "Your dashboard" ]
+            Html.a [ Html.Attributes.href "#", Html.Events.onClick <| SwitchPage PersonPage ] [ Html.text "Your dashboard" ]
 
         PersonPage ->
-            Html.a [ Html.Attributes.href "#" ] [ Html.text "Workshop list" ]
+            Html.a [ Html.Attributes.href "#", Html.Events.onClick <| SwitchPage ListPage ] [ Html.text "Workshop list" ]
 
         WorkshopPage workshop previousPage ->
             viewMainLink previousPage

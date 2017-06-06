@@ -1,4 +1,4 @@
-module Workshops.Msg exposing (Msg)
+module Workshops.Msg exposing (Msg(..))
 
 import Workshops.Pages exposing (PageType)
 
