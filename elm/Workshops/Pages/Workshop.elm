@@ -4,7 +4,7 @@ import Html
 import Workshops.Model exposing (Model)
 import Workshops.Msg exposing (Msg(..))
 import Workshops.Pages exposing (PageType)
-import Workshops.Workshop exposing (Workshop)
+import Workshops.Types.Workshop exposing (Workshop)
 
 viewWorkshopPage : Workshop -> PageType -> Model -> Html.Html Msg
 viewWorkshopPage workshop previousPage model =

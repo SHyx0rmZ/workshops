@@ -4,7 +4,8 @@ import Html
 import Html.Attributes
 import Workshops.Model exposing (Model)
 import Workshops.Msg exposing (Msg(..))
-import Workshops.Workshop exposing (Workshop, viewWorkshopSummary)
+import Workshops.Types.Workshop exposing (Workshop)
+import Workshops.Workshop exposing (viewWorkshopSummary)
 
 viewListPage : Model -> Html.Html Msg
 viewListPage model =

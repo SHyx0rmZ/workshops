@@ -5,7 +5,7 @@ import Html.Attributes
 import Html.Events
 import Workshops.Msg exposing (Msg(..))
 import Workshops.Pages exposing (PageType(..))
-import Workshops.Workshop exposing (Workshop)
+import Workshops.Types.Workshop exposing (Workshop)
 
 viewMainLink : PageType -> Html.Html Msg
 viewMainLink currentPage =

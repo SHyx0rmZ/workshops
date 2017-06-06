@@ -5,14 +5,14 @@ import Debug
 import Html
 import Html.Attributes
 import Html.Events
+import Workshops.Model exposing (Model)
+import Workshops.Msg exposing (Msg(..))
+import Workshops.NavigationBar exposing (viewNavigationBar)
 import Workshops.Pages exposing (PageType(..))
 import Workshops.Pages.List exposing (viewListPage)
 import Workshops.Pages.Person exposing (viewPersonPage)
 import Workshops.Pages.Workshop exposing (viewWorkshopPage)
-import Workshops.Model exposing (Model)
-import Workshops.Msg exposing (Msg(..))
-import Workshops.NavigationBar exposing (viewNavigationBar)
-import Workshops.Workshop exposing (Workshop)
+import Workshops.Types.Workshop exposing (Workshop)
 
 init : (Model, Cmd Msg)
 init =
