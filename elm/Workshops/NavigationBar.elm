@@ -3,10 +3,10 @@ module Workshops.NavigationBar exposing (viewNavigationBar)
 import Html
 import Html.Attributes
 import Html.Events
-import Workshops.Pages exposing (CurrentPage(..))
+import Workshops.Pages exposing (PageType(..))
 import Workshops.Workshop exposing (Workshop)
 
-viewNavigationBar : CurrentPage -> Html.Html msg
+viewNavigationBar : PageType -> Html.Html msg
 viewNavigationBar currentPage =
     Html.nav [ Html.Attributes.style [ ("display", "flex"), ("flex-direction", "row"), ("justify-content", "space-between"), ("align-items", "flex-start") ] ]
         [ viewMainLink currentPage
@@ -16,7 +16,7 @@ viewNavigationBar currentPage =
             ]
         ]
 
-viewMainLink : CurrentPage -> Html.Html msg
+viewMainLink : PageType -> Html.Html msg
 viewMainLink currentPage =
     case currentPage of
         ListPage ->

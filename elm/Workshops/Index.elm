@@ -5,7 +5,7 @@ import Debug
 import Html
 import Html.Attributes
 import Html.Events
-import Workshops.Pages exposing (CurrentPage(..))
+import Workshops.Pages exposing (PageType(..))
 import Workshops.Pages.List exposing (viewListPage)
 import Workshops.Pages.Person exposing (viewPersonPage)
 import Workshops.Pages.Workshop exposing (viewWorkshopPage)
@@ -56,7 +56,7 @@ view { workshops } =
             ]
         ]
 
-viewPage : CurrentPage -> Html.Html msg
+viewPage : PageType -> Html.Html msg
 viewPage currentPage =
     case currentPage of
         ListPage ->
