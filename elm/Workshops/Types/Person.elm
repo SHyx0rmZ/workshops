@@ -5,4 +5,5 @@ type alias Person =
     , keywords : List String
     , workshops : List String
     , id : Int
+    , email : String
     }

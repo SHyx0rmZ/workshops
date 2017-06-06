@@ -31,8 +31,8 @@ initPeople =
                 Err _ ->
                     Debug.crash "failed to initialize"
     in
-        [ Person "Hans Wurst" [ "cat", "fish" ] [ "Foo" ] 0
-        , Person "Horst Semmel" [ "banana", "fruit" ] [] 1
+        [ Person "Hans Wurst" [ "cat", "fish" ] [ "Foo" ] 0 "hans.wurst@example.com"
+        , Person "Horst Semmel" [ "banana", "fruit" ] [] 1 "horst.semmel@example.com"
         ]
 
 initWorkshops : List Workshop
