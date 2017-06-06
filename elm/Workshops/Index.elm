@@ -13,7 +13,7 @@ import Workshops.Pages.List exposing (viewListPage)
 import Workshops.Pages.Person exposing (viewPersonPage)
 import Workshops.Pages.Workshop exposing (viewWorkshopPage)
 import Workshops.Types.Person exposing (Person)
-import Workshops.Types.Session exposing (Session)
+import Workshops.Types.Session exposing (Session, SessionStatus(..))
 import Workshops.Types.Workshop exposing (Workshop)
 
 init : (Model, Cmd Msg)
@@ -46,8 +46,8 @@ initWorkshops =
                 Err _ ->
                     Debug.crash "failed to initialize"
     in
-        [ Workshop [ "banana", "apple", "fruit" ] "Foo" "Lorem ipsum dolor sit amet." [] [] [] [ Session date [ 0, 1 ] ] date 0
-        , Workshop [ "dog", "cat", "animal" ] "Bar" "Lorem ipsum dolor sit amet." [ "http://example.com/Bar.pdf" ] [ 0 ] [ Session date [ 0 ] ] [] date 1
+        [ Workshop [ "banana", "apple", "fruit" ] "Foo" "Lorem ipsum dolor sit amet." [] [] [] [ Session date [ 0, 1 ] SessionApproved  ] date 0
+        , Workshop [ "dog", "cat", "animal" ] "Bar" "Lorem ipsum dolor sit amet." [ "http://example.com/Bar.pdf" ] [ 0 ] [ Session date [ 0 ] SessionRejected ] [] date 1
         ]
 
 main : Program Never Model Msg

@@ -14,6 +14,7 @@ viewSession model session =
         [ Html.tr []
             [ Html.th [] [ Html.text "Date" ]
             , Html.th [] [ Html.text "Attendees" ]
+            , Html.th [] [ Html.text "Status" ]
             ]
         , Html.tr []
             [ Html.td [] [ Html.text <| toString session.date ]
@@ -22,5 +23,6 @@ viewSession model session =
                     <| List.map (\ps -> Html.li [] [ Html.text ps.name ])
                     <| List.filterMap (personFromId model) session.attendees
                 ]
+            , Html.td [] [ Html.text <| toString session.status ]
             ]
         ]
