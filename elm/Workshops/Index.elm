@@ -62,10 +62,10 @@ viewPage model currentPage =
             viewListPage model
 
         PersonPage ->
-            viewPersonPage
+            viewPersonPage model
 
         WorkshopPage workshop previousPage ->
-            viewWorkshopPage workshop previousPage
+            viewWorkshopPage workshop previousPage model
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
