@@ -13,7 +13,7 @@ viewListPage model =
         [ Html.div [ Html.Attributes.style [ ("background", "green") ] ]
             [ Html.h2 [] [ Html.text "Workshops offered" ]
             , Html.ul []
-                <| List.map (\ws -> Html.li [] [ viewWorkshopSummary ws ]) model.workshops
+                <| List.map (\ws -> Html.li [] [ viewWorkshopSummary model.currentPage ws ]) model.workshops
             ]
         , Html.div [ Html.Attributes.style [ ("background", "blue") ] ]
             [ Html.h2 [] [ Html.text "Topics wanted" ]

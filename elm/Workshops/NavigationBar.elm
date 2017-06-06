@@ -11,13 +11,29 @@ viewMainLink : PageType -> Html.Html Msg
 viewMainLink currentPage =
     case currentPage of
         ListPage ->
-            Html.a [ Html.Attributes.href "#", Html.Events.onClick <| SwitchPage PersonPage ] [ Html.text "Your dashboard" ]
+            viewMainLinkPersonPage
 
         PersonPage ->
-            Html.a [ Html.Attributes.href "#", Html.Events.onClick <| SwitchPage ListPage ] [ Html.text "Workshop list" ]
+            viewMainLinkListPage
 
         WorkshopPage workshop previousPage ->
-            viewMainLink previousPage
+            case previousPage of
+                ListPage ->
+                    viewMainLinkListPage
+
+                PersonPage ->
+                    viewMainLinkPersonPage
+
+                WorkshopPage _ _ ->
+                    viewMainLink previousPage
+
+viewMainLinkListPage : Html.Html Msg
+viewMainLinkListPage =
+    Html.a [ Html.Attributes.href "#", Html.Events.onClick <| SwitchPage ListPage ] [ Html.text "Workshop list" ]
+
+viewMainLinkPersonPage : Html.Html Msg
+viewMainLinkPersonPage =
+    Html.a [ Html.Attributes.href "#", Html.Events.onClick <| SwitchPage PersonPage ] [ Html.text "Your dashboard" ]
 
 viewNavigationBar : PageType -> Html.Html Msg
 viewNavigationBar currentPage =

@@ -13,7 +13,7 @@ viewPersonPage person model =
         [ Html.div [ Html.Attributes.style [ ("background", "green") ] ]
             [ Html.h2 [] [ Html.text "Workshops I offer" ]
             , Html.ul []
-                <| List.map (\ws -> Html.li [] [ viewWorkshopSummary ws ])
+                <| List.map (\ws -> Html.li [] [ viewWorkshopSummary model.currentPage ws ])
                 <| List.concat
                 <| List.map (\wsn -> List.filter (\ws -> ws.title == wsn) model.workshops) person.workshops
             ]
