@@ -10,7 +10,7 @@ type alias Workshop =
     , description : String
     , materials : List String
     , prospects : List Int
-    , calendar : List Session
+    , schedule : List Session
     , history : List Session
     , created : Date.Date
     , id : Int

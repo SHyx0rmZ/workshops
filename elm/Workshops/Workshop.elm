@@ -28,10 +28,10 @@ viewWorkshopDetails model workshop =
             <| List.filter (\ps -> List.any (\kw -> List.member kw workshop.keywords) ps.keywords)
             <| List.concat
             <| List.map (\psi -> List.filter (\ps -> ps.id == psi) model.people) workshop.prospects
-        , Html.h4 [] [ Html.text "Calendar" ]
+        , Html.h4 [] [ Html.text "Schedule" ]
         , Html.ul []
             <| List.map (\html -> Html.li [] [ html ])
-            <| List.map (viewSession model) workshop.calendar
+            <| List.map (viewSession model) workshop.schedule
         , Html.h4 [] [ Html.text "History" ]
         , Html.ul []
             <| List.map (\html -> Html.li [] [ html ])
