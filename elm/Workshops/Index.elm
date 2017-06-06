@@ -5,8 +5,12 @@ import Debug
 import Html
 import Html.Attributes
 import Html.Events
+import Workshops.Pages exposing (CurrentPage(..))
+import Workshops.Pages.List exposing (viewListPage)
+import Workshops.Pages.Person exposing (viewPersonPage)
+import Workshops.Pages.Workshop exposing (viewWorkshopPage)
 import Workshops.Workshop exposing (Workshop, viewSummary)
-import Workshops.NavigationBar exposing (CurrentPage(..), viewNavigationBar)
+import Workshops.NavigationBar exposing (viewNavigationBar)
 
 main =
     Html.program
@@ -51,6 +55,18 @@ view { workshops } =
                 ]
             ]
         ]
+
+viewPage : CurrentPage -> Html.Html msg
+viewPage currentPage =
+    case currentPage of
+        ListPage ->
+            viewListPage
+
+        PersonPage ->
+            viewPersonPage
+
+        WorkshopPage workshop previousPage ->
+            viewWorkshopPage workshop previousPage
 
 subscriptions _ =
     Sub.none
