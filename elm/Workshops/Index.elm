@@ -12,11 +12,26 @@ import Workshops.Pages exposing (PageType(..))
 import Workshops.Pages.List exposing (viewListPage)
 import Workshops.Pages.Person exposing (viewPersonPage)
 import Workshops.Pages.Workshop exposing (viewWorkshopPage)
+import Workshops.Types.Person exposing (Person)
 import Workshops.Types.Workshop exposing (Workshop)
 
 init : (Model, Cmd Msg)
 init =
-        Model initWorkshops ListPage ! []
+        Model initWorkshops initPeople ListPage 0 ! []
+
+initPeople : List Person
+initPeople =
+    let
+        date =
+            case Date.fromString "2017-06-06T00:00:00Z" of
+                Ok date ->
+                    date
+
+                Err _ ->
+                    Debug.crash "failed to initialize"
+    in
+        [ Person "Hans Wurst" [ "cat", "fish" ] [ "Foo" ] 0
+        ]
 
 initWorkshops : List Workshop
 initWorkshops =
@@ -66,7 +81,16 @@ viewPage model currentPage =
             viewListPage model
 
         PersonPage ->
-            viewPersonPage model
+            let
+                person =
+                    case List.head <| List.filter (\ps -> ps.id == model.person) model.people of
+                        Just person ->
+                            person
+
+                        Nothing ->
+                            Debug.crash "invalid user"
+            in
+                viewPersonPage person model
 
         WorkshopPage workshop previousPage ->
             viewWorkshopPage workshop previousPage model

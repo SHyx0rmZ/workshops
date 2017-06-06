@@ -18,7 +18,8 @@ viewListPage model =
         , Html.div [ Html.Attributes.style [ ("background", "blue") ] ]
             [ Html.h2 [] [ Html.text "Topics wanted" ]
             , Html.ul []
-                [
-                ]
+                <| List.map (\kw -> Html.li [] [ Html.text kw ])
+                <| List.concat
+                <| List.map .keywords model.people
             ]
         ]
