@@ -27,7 +27,7 @@ type alias Workshop =
     , created : Date.Date
     }
 
-viewSummary workshop =
+viewWorkshopSummary workshop =
     Html.div []
         [ Html.h3 [] [ Html.text workshop.title ]
         , Html.p [] [ Html.text workshop.description ]

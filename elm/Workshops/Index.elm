@@ -9,7 +9,7 @@ import Workshops.Pages exposing (PageType(..))
 import Workshops.Pages.List exposing (viewListPage)
 import Workshops.Pages.Person exposing (viewPersonPage)
 import Workshops.Pages.Workshop exposing (viewWorkshopPage)
-import Workshops.Workshop exposing (Workshop, viewSummary)
+import Workshops.Workshop exposing (Workshop)
 import Workshops.NavigationBar exposing (viewNavigationBar)
 
 main =
@@ -41,26 +41,14 @@ update _ model =
 view { workshops } =
     Html.div [ Html.Attributes.style [ ("background", "red") ] ]
         [ viewNavigationBar ListPage
-        , Html.div [ Html.Attributes.style [ ("display", "grid"), ("grid-template-columns", "1fr 1fr") ] ]
-            [ Html.div [ Html.Attributes.style [ ("background", "green") ] ]
-                [ Html.h2 [] [ Html.text "Workshops offered" ]
-                , Html.ul []
-                    <| List.map (\ws -> Html.li [] [ viewSummary ws ]) workshops
-                ]
-            , Html.div [ Html.Attributes.style [ ("background", "blue") ] ]
-                [ Html.h2 [] [ Html.text "Topics wanted" ]
-                , Html.ul []
-                    [
-                    ]
-                ]
-            ]
+        , viewPage workshops ListPage
         ]
 
-viewPage : PageType -> Html.Html msg
-viewPage currentPage =
+viewPage : List Workshop -> PageType -> Html.Html msg
+viewPage workshops currentPage =
     case currentPage of
         ListPage ->
-            viewListPage
+            viewListPage workshops
 
         PersonPage ->
             viewPersonPage
