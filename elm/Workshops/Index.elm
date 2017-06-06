@@ -9,9 +9,12 @@ import Workshops.Pages exposing (PageType(..))
 import Workshops.Pages.List exposing (viewListPage)
 import Workshops.Pages.Person exposing (viewPersonPage)
 import Workshops.Pages.Workshop exposing (viewWorkshopPage)
-import Workshops.Workshop exposing (Workshop)
+import Workshops.Model exposing (Model)
+import Workshops.Msg exposing (Msg(..))
 import Workshops.NavigationBar exposing (viewNavigationBar)
+import Workshops.Workshop exposing (Workshop)
 
+main : Program Never Model Msg
 main =
     Html.program
         { init = init
@@ -20,7 +23,12 @@ main =
         , subscriptions = subscriptions
         }
 
+init : (Model, Cmd Msg)
 init =
+        Model initWorkshops ListPage ! []
+
+initWorkshops : List Workshop
+initWorkshops =
     let
         date =
             case Date.fromString "2017-06-06T00:00:00Z" of
@@ -30,25 +38,26 @@ init =
                 Err _ ->
                     Debug.crash "failed to initialize"
     in
-        { workshops =
-            [ Workshop [ "banana", "apple", "fruit" ] "Foo" "Lorem ipsum dolor sit amet." [] [] [] [] date
-            , Workshop [ "dog", "cat", "animal" ] "Bar" "Lorem ipsum dolor sit amet." [] [] [] [] date
-            ] } ! []
+        [ Workshop [ "banana", "apple", "fruit" ] "Foo" "Lorem ipsum dolor sit amet." [] [] [] [] date
+        , Workshop [ "dog", "cat", "animal" ] "Bar" "Lorem ipsum dolor sit amet." [] [] [] [] date
+        ]
 
+update : Msg -> Model -> (Model, Cmd Msg)
 update _ model =
     model ! []
 
-view { workshops } =
+view : Model -> Html.Html Msg
+view model =
     Html.div [ Html.Attributes.style [ ("background", "red") ] ]
         [ viewNavigationBar ListPage
-        , viewPage workshops ListPage
+        , viewPage model ListPage
         ]
 
-viewPage : List Workshop -> PageType -> Html.Html msg
-viewPage workshops currentPage =
+viewPage : Model -> PageType -> Html.Html msg
+viewPage model currentPage =
     case currentPage of
         ListPage ->
-            viewListPage workshops
+            viewListPage model
 
         PersonPage ->
             viewPersonPage
@@ -56,5 +65,6 @@ viewPage workshops currentPage =
         WorkshopPage workshop previousPage ->
             viewWorkshopPage workshop previousPage
 
+subscriptions : Model -> Sub Msg
 subscriptions _ =
     Sub.none
