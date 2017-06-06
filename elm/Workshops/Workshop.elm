@@ -1,9 +1,10 @@
-module Workshops.Workshop exposing (viewWorkshopSummary)
+module Workshops.Workshop exposing (viewWorkshopSummary, workshopFromId)
 
 import Date
 import Html
 import Html.Attributes
 import Html.Events
+import Workshops.Model exposing (Model)
 import Workshops.Msg exposing (Msg(..))
 import Workshops.Pages exposing (PageType(..))
 import Workshops.Types.Workshop exposing (Workshop)
@@ -21,3 +22,9 @@ viewWorkshopSummary currentPage workshop =
                 ]
             ]
         ]
+
+workshopFromId : Model -> Int -> Maybe Workshop
+workshopFromId model id =
+    model.workshops
+        |> List.filter (.id >> (==) id)
+        |> List.head

@@ -9,8 +9,9 @@ type alias Workshop =
     , title : String
     , description : String
     , materials : List String
-    , prospects : List Person
+    , prospects : List Int
     , calendar : List Session
     , history : List Session
     , created : Date.Date
+    , id : Int
     }
