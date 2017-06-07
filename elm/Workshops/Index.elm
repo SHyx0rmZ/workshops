@@ -5,6 +5,8 @@ import Debug
 import Html
 import Html.Attributes
 import Html.Events
+import Navigation exposing (Location)
+import Workshops.Flags exposing (Flags)
 import Workshops.Model exposing (Model)
 import Workshops.Msg exposing (Msg(..))
 import Workshops.NavigationBar exposing (viewNavigationBar)
@@ -16,9 +18,9 @@ import Workshops.Types.Person exposing (Person)
 import Workshops.Types.Session exposing (Session, SessionStatus(..))
 import Workshops.Types.Workshop exposing (Workshop)
 
-init : (Model, Cmd Msg)
-init =
-        Model initWorkshops initPeople ListPage 0 ! []
+init : Flags -> Location -> (Model, Cmd Msg)
+init flags location =
+    Model initWorkshops initPeople ListPage 0 ! []
 
 initPeople : List Person
 initPeople =
@@ -50,9 +52,9 @@ initWorkshops =
         , Workshop [ "dog", "cat", "animal" ] "Bar" "Lorem ipsum dolor sit amet." [ "http://example.com/Bar.pdf" ] [ 0 ] [ Session date [ 0 ] SessionRejected ] [] date 1
         ]
 
-main : Program Never Model Msg
+main : Program Flags Model Msg
 main =
-    Html.program
+    Navigation.programWithFlags ChangeLocation
         { init = init
         , update = update
         , view = view
@@ -66,6 +68,9 @@ subscriptions _ =
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
+        ChangeLocation location ->
+            model ! []
+
         SwitchPage newPage ->
             { model | currentPage = newPage } ! []
 
