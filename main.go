@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"github.com/SHyx0rmZ/workshops/workshops"
 	"io/ioutil"
 	"net/http"
 )
@@ -20,37 +21,6 @@ func main() {
 	http.ListenAndServe("0.0.0.0:3000", http.DefaultServeMux)
 }
 
-type Data struct {
-	People    []Person   `json:"people"`
-	Workshops []Workshop `json:"workshops"`
-}
-
-type Person struct {
-	Name      string   `json:"name"`
-	Keywords  []string `json:"keywords"`
-	Workshops []string `json:"workshops"`
-	Id        int      `json:"id"`
-	Email     string   `json:"email"`
-}
-
-type Session struct {
-	Date      string `json:"date"`
-	Attendees []int  `json:"attendees"`
-	Status    string `json:"status"`
-}
-
-type Workshop struct {
-	Keywords    []string  `json:"keywords"`
-	Title       string    `json:"title"`
-	Description string    `json:"description"`
-	Materials   []string  `json:"materials"`
-	Prospects   []int     `json:"prospects"`
-	Schedule    []Session `json:"schedule"`
-	History     []Session `json:"history"`
-	Created     string    `json:"created"`
-	Id          int       `json:"id"`
-}
-
 type ElmHandler struct{}
 
 func NewElmHandler() *ElmHandler {
@@ -58,8 +28,8 @@ func NewElmHandler() *ElmHandler {
 }
 
 func (h ElmHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	d := &Data{
-		People: []Person{
+	d := &workshops.Flags{
+		People: []workshops.Person{
 			{
 				Name:      "Hans Wurst",
 				Keywords:  []string{"cat", "fish"},
@@ -75,15 +45,15 @@ func (h ElmHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				Email:     "horst.semmel@example.com",
 			},
 		},
-		Workshops: []Workshop{
+		Workshops: []workshops.Workshop{
 			{
 				Keywords:    []string{"banana", "apple", "fruit"},
 				Title:       "Foo",
 				Description: "Lorem ipsum dolor sit amet.",
 				Materials:   []string{},
 				Prospects:   []int{},
-				Schedule:    []Session{},
-				History: []Session{
+				Schedule:    []workshops.Session{},
+				History: []workshops.Session{
 					{
 						Date: "2017-06-06T00:00:00Z",
 						Attendees: []int{
@@ -106,7 +76,7 @@ func (h ElmHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				Prospects: []int{
 					0,
 				},
-				Schedule: []Session{
+				Schedule: []workshops.Session{
 					{
 						Date: "2017-06-06T00:00:00Z",
 						Attendees: []int{
@@ -115,7 +85,7 @@ func (h ElmHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 						Status: "rejected",
 					},
 				},
-				History: []Session{},
+				History: []workshops.Session{},
 				Created: "2017-06-06T00:00:00Z",
 				Id:      1,
 			},
