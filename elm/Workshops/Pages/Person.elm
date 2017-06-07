@@ -5,7 +5,7 @@ import Html.Attributes
 import Workshops.Model exposing (Model)
 import Workshops.Msg exposing (Msg(..))
 import Workshops.Types.Person exposing (Person)
-import Workshops.Workshop exposing (viewWorkshopSummary)
+import Workshops.Workshop exposing (viewWorkshopSummary, workshopFromTitle)
 
 viewPersonPage : Person -> Model -> Html.Html Msg
 viewPersonPage person model =
@@ -14,8 +14,7 @@ viewPersonPage person model =
             [ Html.h2 [] [ Html.text "Workshops I offer" ]
             , Html.ul []
                 <| List.map (\ws -> Html.li [] [ viewWorkshopSummary model.currentPage ws ])
-                <| List.concat
-                <| List.map (\wsn -> List.filter (\ws -> ws.title == wsn) model.workshops) person.workshops
+                <| List.filterMap (workshopFromTitle model) person.workshops
             ]
         , Html.div []
             [ Html.h2 [] [ Html.text "Topics wanted" ]

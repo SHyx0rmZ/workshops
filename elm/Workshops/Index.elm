@@ -15,6 +15,7 @@ import Workshops.Pages exposing (PageType(..))
 import Workshops.Pages.List exposing (viewListPage)
 import Workshops.Pages.Person exposing (viewPersonPage)
 import Workshops.Pages.Workshop exposing (viewWorkshopPage)
+import Workshops.Person exposing (personFromId)
 import Workshops.Types.Person exposing (Person)
 import Workshops.Types.Session exposing (Session, SessionStatus(..))
 import Workshops.Types.Workshop exposing (Workshop)
@@ -101,7 +102,7 @@ viewPage model currentPage =
         PersonPage ->
             let
                 person =
-                    case List.head <| List.filter (\ps -> ps.id == model.person) model.people of
+                    case personFromId model model.person of
                         Just person ->
                             person
 

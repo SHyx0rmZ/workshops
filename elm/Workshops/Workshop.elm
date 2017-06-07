@@ -1,4 +1,4 @@
-module Workshops.Workshop exposing (viewWorkshopDetails, viewWorkshopSummary, workshopFromId)
+module Workshops.Workshop exposing (viewWorkshopDetails, viewWorkshopSummary, workshopFromId, workshopFromTitle)
 
 import Date
 import Html
@@ -56,4 +56,10 @@ workshopFromId : Model -> Int -> Maybe Workshop
 workshopFromId model id =
     model.workshops
         |> List.filter (.id >> (==) id)
+        |> List.head
+
+workshopFromTitle : Model -> String -> Maybe Workshop
+workshopFromTitle model title =
+    model.workshops
+        |> List.filter (.title >> (==) title)
         |> List.head
