@@ -18,7 +18,7 @@ import Workshops.Pages.Workshop exposing (viewWorkshopPage)
 import Workshops.Person exposing (personFromId)
 import Workshops.Types.Person exposing (Person)
 import Workshops.Types.Session exposing (Session, SessionStatus(..))
-import Workshops.Types.Workshop exposing (Workshop)
+import Workshops.Types.Workshop exposing (Workshop, workshopFromApi)
 
 determinePage : Model -> Location -> PageType
 determinePage model location =
@@ -29,7 +29,7 @@ init : Flags -> Location -> (Model, Cmd Msg)
 init flags location =
     let
         model =
-            Model initWorkshops initPeople ListPage 0
+            Model (List.map workshopFromApi flags.workshops) flags.people ListPage 0
     in
         { model | currentPage = determinePage model location } ! []
 
