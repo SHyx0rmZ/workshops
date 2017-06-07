@@ -6,10 +6,11 @@ import Html
 import Html.Attributes
 import Html.Events
 import Navigation exposing (Location)
+import UrlParser exposing (parsePath)
 import Workshops.Flags exposing (Flags)
 import Workshops.Model exposing (Model)
 import Workshops.Msg exposing (Msg(..))
-import Workshops.NavigationBar exposing (viewNavigationBar)
+import Workshops.NavigationBar exposing (routes, viewNavigationBar)
 import Workshops.Pages exposing (PageType(..))
 import Workshops.Pages.List exposing (viewListPage)
 import Workshops.Pages.Person exposing (viewPersonPage)
@@ -18,9 +19,18 @@ import Workshops.Types.Person exposing (Person)
 import Workshops.Types.Session exposing (Session, SessionStatus(..))
 import Workshops.Types.Workshop exposing (Workshop)
 
+determinePage : Model -> Location -> PageType
+determinePage model location =
+    parsePath (routes model) location
+        |> Maybe.withDefault ListPage
+
 init : Flags -> Location -> (Model, Cmd Msg)
 init flags location =
-    Model initWorkshops initPeople ListPage 0 ! []
+    let
+        model =
+            Model initWorkshops initPeople ListPage 0
+    in
+        { model | currentPage = determinePage model location } ! []
 
 initPeople : List Person
 initPeople =

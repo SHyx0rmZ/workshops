@@ -1,11 +1,31 @@
-module Workshops.NavigationBar exposing (viewNavigationBar)
+module Workshops.NavigationBar exposing (routes, viewNavigationBar)
 
 import Html
 import Html.Attributes
 import Html.Events
+import UrlParser exposing ((</>), Parser, int, map, oneOf, s)
+import Workshops.Model exposing (Model)
 import Workshops.Msg exposing (Msg(..))
 import Workshops.Pages exposing (PageType(..))
 import Workshops.Types.Workshop exposing (Workshop)
+import Workshops.Workshop exposing (workshopFromId)
+
+routes : Model -> Parser (PageType -> a) a
+routes model =
+    oneOf
+        [ map ListPage (s "workshops")
+        , map PersonPage (s "dashboard")
+        , map (routesHelperWorkshop model) (s "workshops" </> int)
+        ]
+
+routesHelperWorkshop : Model -> Int -> PageType
+routesHelperWorkshop model id =
+    case workshopFromId model id of
+        Just workshop ->
+            WorkshopPage workshop ListPage
+
+        Nothing ->
+            ListPage
 
 viewMainLink : PageType -> Html.Html Msg
 viewMainLink currentPage =
@@ -29,11 +49,11 @@ viewMainLink currentPage =
 
 viewMainLinkListPage : Html.Html Msg
 viewMainLinkListPage =
-    Html.a [ Html.Attributes.href "#", Html.Events.onClick <| SwitchPage ListPage ] [ Html.text "Workshop list" ]
+    Html.a [ Html.Attributes.href "/workshops", Html.Events.onClick <| SwitchPage ListPage ] [ Html.text "Workshop list" ]
 
 viewMainLinkPersonPage : Html.Html Msg
 viewMainLinkPersonPage =
-    Html.a [ Html.Attributes.href "#", Html.Events.onClick <| SwitchPage PersonPage ] [ Html.text "Your dashboard" ]
+    Html.a [ Html.Attributes.href "/dashboard", Html.Events.onClick <| SwitchPage PersonPage ] [ Html.text "Your dashboard" ]
 
 viewNavigationBar : PageType -> Html.Html Msg
 viewNavigationBar currentPage =

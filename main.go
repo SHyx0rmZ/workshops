@@ -7,7 +7,9 @@ import (
 
 func main() {
 	routes := map[string]string{
-		"/list": "index.html",
+		"/dashboard":  "index.html",
+		"/workshops":  "index.html",
+		"/workshops/": "index.html",
 	}
 
 	for route, file := range routes {
@@ -18,6 +20,8 @@ func main() {
 
 		http.Handle(route, handler)
 	}
+
+	http.Handle("/", http.RedirectHandler("/workshops", http.StatusTemporaryRedirect))
 	http.ListenAndServe("0.0.0.0:3000", http.DefaultServeMux)
 }
 

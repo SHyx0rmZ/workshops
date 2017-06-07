@@ -40,7 +40,7 @@ viewWorkshopDetails model workshop =
 
 viewWorkshopSummary : PageType -> Workshop -> Html.Html Msg
 viewWorkshopSummary currentPage workshop =
-    Html.a [ Html.Attributes.href "#", Html.Events.onClick <| SwitchPage <| WorkshopPage workshop currentPage ]
+    Html.a [ Html.Attributes.href <| "/workshops/" ++ toString workshop.id, Html.Events.onClick <| SwitchPage <| WorkshopPage workshop currentPage ]
         [ Html.div []
             [ Html.h3 [] [ Html.text workshop.title ]
             , Html.p [] [ Html.text workshop.description ]
