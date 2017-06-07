@@ -89,6 +89,7 @@ view model =
     Html.div []
         [ viewNavigationBar model.currentPage
         , viewPage model model.currentPage
+        , Html.node "style" [] [ Html.text ".keywords li + li:before { content: \", \"; } .keywords li { display: inline; } ul.keywords { list-style-type: none; }" ]
         ]
 
 viewPage : Model -> PageType -> Html.Html Msg

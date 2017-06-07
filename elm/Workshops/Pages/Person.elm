@@ -10,16 +10,16 @@ import Workshops.Workshop exposing (viewWorkshopSummary)
 viewPersonPage : Person -> Model -> Html.Html Msg
 viewPersonPage person model =
     Html.div [ Html.Attributes.style [ ("display", "grid"), ("grid-template-columns", "1fr 1fr") ] ]
-        [ Html.div [ Html.Attributes.style [ ("background", "green") ] ]
+        [ Html.div []
             [ Html.h2 [] [ Html.text "Workshops I offer" ]
             , Html.ul []
                 <| List.map (\ws -> Html.li [] [ viewWorkshopSummary model.currentPage ws ])
                 <| List.concat
                 <| List.map (\wsn -> List.filter (\ws -> ws.title == wsn) model.workshops) person.workshops
             ]
-        , Html.div [ Html.Attributes.style [ ("background", "blue") ] ]
+        , Html.div []
             [ Html.h2 [] [ Html.text "Topics wanted" ]
-            , Html.ul []
+            , Html.ul [ Html.Attributes.class "keywords" ]
                 <| List.map (\kw -> Html.li [] [ Html.text kw ]) person.keywords
             ]
         ]

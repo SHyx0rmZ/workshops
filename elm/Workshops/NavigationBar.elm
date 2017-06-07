@@ -58,7 +58,7 @@ viewMainLinkPersonPage =
 
 viewNavigationBar : PageType -> Html.Html Msg
 viewNavigationBar currentPage =
-    Html.nav [ Html.Attributes.style [ ("background", "red"), ("display", "flex"), ("flex-direction", "row"), ("justify-content", "space-between"), ("align-items", "flex-start") ] ]
+    Html.nav [ Html.Attributes.style [ ("display", "flex"), ("flex-direction", "row"), ("justify-content", "space-between"), ("align-items", "flex-start") ] ]
         [ viewMainLink currentPage
         , Html.div [ Html.Attributes.style [ ("align-self", "flex-end") ] ]
             [ Html.input [ Html.Attributes.placeholder "Keywords" ] []

@@ -17,8 +17,8 @@ viewWorkshopDetails model workshop =
         [ Html.h3 [] [ Html.text workshop.title ]
         , Html.p [] [ Html.text workshop.description ]
         , Html.span []
-            [ Html.ul [ Html.Attributes.style [ ("list-style-type", "content(', ')") ] ]
-                <| List.map (\kw -> Html.li [ Html.Attributes.style [ ("display", "inline") ] ] [ Html.text kw ]) workshop.keywords
+            [ Html.ul [ Html.Attributes.class "keywords" ]
+                <| List.map (\kw -> Html.li [] [ Html.text kw ]) workshop.keywords
             ]
         , Html.h4 [] [ Html.text "Materials" ]
         , Html.ul []
@@ -45,9 +45,8 @@ viewWorkshopSummary currentPage workshop =
         [ Html.div []
             [ Html.h3 [] [ Html.text workshop.title ]
             , Html.p [] [ Html.text workshop.description ]
-            , Html.node "style" [] [ Html.text "li + li:before { content: \", \"; }" ]
-            , Html.span []
-                [ Html.ul [ Html.Attributes.style [ ("list-style-type", "content(', ')") ] ]
+            , Html.span [ Html.Attributes.class "keywords" ]
+                [ Html.ul []
                     <| List.map (\kw -> Html.li [ Html.Attributes.style [ ("display", "inline") ] ] [ Html.text kw ]) workshop.keywords
                 ]
             ]
