@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"github.com/SHyx0rmZ/workshops/workshops"
+	"github.com/SHyx0rmZ/workshops/workshops/db"
 	"io/ioutil"
 	"net/http"
 )
@@ -21,75 +22,32 @@ func main() {
 	http.ListenAndServe("0.0.0.0:3000", http.DefaultServeMux)
 }
 
-type ElmHandler struct{}
+type ElmHandler struct {
+	database db.Database
+}
 
 func NewElmHandler() *ElmHandler {
-	return &ElmHandler{}
+	database, _ := db.OpenDatabase()
+
+	return &ElmHandler{
+		database: database,
+	}
 }
 
 func (h ElmHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	p, err := h.database.LoadPeople()
+	if err != nil {
+		return
+	}
+
+	ws, err := h.database.LoadWorkshops()
+	if err != nil {
+		return
+	}
+
 	d := &workshops.Flags{
-		People: []workshops.Person{
-			{
-				Name:      "Hans Wurst",
-				Keywords:  []string{"cat", "fish"},
-				Workshops: []string{"Foo"},
-				Id:        0,
-				Email:     "hans.wurst@example.com",
-			},
-			{
-				Name:      "Horst Semmel",
-				Keywords:  []string{"banana", "fruit"},
-				Workshops: []string{},
-				Id:        1,
-				Email:     "horst.semmel@example.com",
-			},
-		},
-		Workshops: []workshops.Workshop{
-			{
-				Keywords:    []string{"banana", "apple", "fruit"},
-				Title:       "Foo",
-				Description: "Lorem ipsum dolor sit amet.",
-				Materials:   []string{},
-				Prospects:   []int{},
-				Schedule:    []workshops.Session{},
-				History: []workshops.Session{
-					{
-						Date: "2017-06-06T00:00:00Z",
-						Attendees: []int{
-							0,
-							1,
-						},
-						Status: "approved",
-					},
-				},
-				Created: "2017-06-06T00:00:00Z",
-				Id:      0,
-			},
-			{
-				Keywords:    []string{"dog", "cat", "animal"},
-				Title:       "Bar",
-				Description: "Lorem ipsum dolor sit amet.",
-				Materials: []string{
-					"http://example.com/Bar.pdf",
-				},
-				Prospects: []int{
-					0,
-				},
-				Schedule: []workshops.Session{
-					{
-						Date: "2017-06-06T00:00:00Z",
-						Attendees: []int{
-							0,
-						},
-						Status: "rejected",
-					},
-				},
-				History: []workshops.Session{},
-				Created: "2017-06-06T00:00:00Z",
-				Id:      1,
-			},
-		},
+		People:    p,
+		Workshops: ws,
 	}
 
 	data, err := json.Marshal(d)

@@ -33,36 +33,6 @@ init flags location =
     in
         { model | currentPage = determinePage model location } ! []
 
-initPeople : List Person
-initPeople =
-    let
-        date =
-            case Date.fromString "2017-06-06T00:00:00Z" of
-                Ok date ->
-                    date
-
-                Err _ ->
-                    Debug.crash "failed to initialize"
-    in
-        [ Person "Hans Wurst" [ "cat", "fish" ] [ "Foo" ] 0 "hans.wurst@example.com"
-        , Person "Horst Semmel" [ "banana", "fruit" ] [] 1 "horst.semmel@example.com"
-        ]
-
-initWorkshops : List Workshop
-initWorkshops =
-    let
-        date =
-            case Date.fromString "2017-06-06T00:00:00Z" of
-                Ok date ->
-                    date
-
-                Err _ ->
-                    Debug.crash "failed to initialize"
-    in
-        [ Workshop [ "banana", "apple", "fruit" ] "Foo" "Lorem ipsum dolor sit amet." [] [] [] [ Session date [ 0, 1 ] SessionApproved  ] date 0
-        , Workshop [ "dog", "cat", "animal" ] "Bar" "Lorem ipsum dolor sit amet." [ "http://example.com/Bar.pdf" ] [ 0 ] [ Session date [ 0 ] SessionRejected ] [] date 1
-        ]
-
 main : Program Flags Model Msg
 main =
     Navigation.programWithFlags ChangeLocation
