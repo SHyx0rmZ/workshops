@@ -10,12 +10,13 @@ import UrlParser exposing (parsePath)
 import Workshops.Flags exposing (Flags)
 import Workshops.Model exposing (Model)
 import Workshops.Msg exposing (Msg(..))
-import Workshops.NavigationBar exposing (routes, viewNavigationBar)
+import Workshops.NavigationBar exposing (viewNavigationBar)
 import Workshops.Pages exposing (PageType(..))
 import Workshops.Pages.List exposing (viewListPage)
 import Workshops.Pages.Person exposing (viewPersonPage)
 import Workshops.Pages.Workshop exposing (viewWorkshopPage)
 import Workshops.Person exposing (personFromId)
+import Workshops.Routes exposing (generateUrl, routes)
 import Workshops.Types.Person exposing (Person)
 import Workshops.Types.Session exposing (Session, SessionStatus(..))
 import Workshops.Types.Workshop exposing (Workshop, workshopFromApi)
@@ -50,10 +51,10 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
         ChangeLocation location ->
-            model ! []
+            { model | currentPage = determinePage model location } ! []
 
         SwitchPage newPage ->
-            { model | currentPage = newPage } ! []
+            { model | currentPage = newPage } ! [ Navigation.newUrl <| generateUrl newPage ]
 
 view : Model -> Html.Html Msg
 view model =
